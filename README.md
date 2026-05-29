@@ -1,2 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/bobbidenisleo-glitch/java-project-78/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/bobbidenisleo-glitch/java-project-78/actions)
+
+### Java CI (Gradle)
+[![Java CI](https://github.com/bobbidenisleo-glitch/java-project-78/actions/workflows/ci.yml/badge.svg)](https://github.com/bobbidenisleo-glitch/java-project-78/actions/workflows/ci.yml)
+
+Валидатор данных на Java.
