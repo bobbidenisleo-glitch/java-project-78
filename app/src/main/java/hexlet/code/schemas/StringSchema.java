@@ -1,18 +1,15 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
-public class StringSchema {
+public class StringSchema extends BaseSchema<String> {
 
-    private List<Predicate<String>> validators = new ArrayList<>();
-    private Predicate<String> requiredValidator = null;
     private Predicate<String> minLengthValidator = null;
     private Predicate<String> containsValidator = null;
 
+    @Override
     public StringSchema required() {
-        requiredValidator = s -> s != null && !s.isEmpty();
+        requiredValidator = value -> value != null && !value.isEmpty();
         rebuildValidators();
         return this;
     }
@@ -29,7 +26,8 @@ public class StringSchema {
         return this;
     }
 
-    private void rebuildValidators() {
+    @Override
+    protected void rebuildValidators() {
         validators.clear();
         if (requiredValidator != null) {
             validators.add(requiredValidator);
@@ -40,12 +38,5 @@ public class StringSchema {
         if (containsValidator != null) {
             validators.add(containsValidator);
         }
-    }
-
-    public boolean isValid(String value) {
-        if (validators.isEmpty()) {
-            return true;
-        }
-        return validators.stream().allMatch(v -> v.test(value));
     }
 }
