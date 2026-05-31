@@ -41,3 +41,7 @@ sonarqube {
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
+
+tasks.withType<Test> {
+    exclude("**/hexlet/project/**")
+}
