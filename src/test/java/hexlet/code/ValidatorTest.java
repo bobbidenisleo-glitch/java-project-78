@@ -28,23 +28,23 @@ class ValidatorTest {
 
         MapSchema schema = v.map().shape(schemas);
 
-        Map<String, Object> actual1 = new HashMap<>();
-        actual1.put("name", "John");
-        actual1.put("age", 25);
-        assertTrue(schema.isValid(actual1));
+        Map<String, Object> person1 = new HashMap<>();
+        person1.put("name", "John");
+        person1.put("age", 25);
+        assertTrue(schema.isValid(person1));
 
-        Map<String, Object> actual2 = new HashMap<>();
-        actual2.put("name", "");
-        actual2.put("age", 25);
-        assertFalse(schema.isValid(actual2));
+        Map<String, Object> person2 = new HashMap<>();
+        person2.put("name", "");
+        person2.put("age", 25);
+        assertFalse(schema.isValid(person2));
 
-        Map<String, Object> actual3 = new HashMap<>();
-        actual3.put("name", "Jane");
-        actual3.put("age", -5);
-        assertFalse(schema.isValid(actual3));
+        Map<String, Object> person3 = new HashMap<>();
+        person3.put("name", "Jane");
+        person3.put("age", -5);
+        assertFalse(schema.isValid(person3));
 
-        Map<String, Object> actual4 = new HashMap<>();
-        actual4.put("name", "Bob");
-        assertTrue(schema.isValid(actual4));
+        Map<String, Object> person4 = new HashMap<>();
+        person4.put("name", "Bob");
+        assertTrue(schema.isValid(person4));
     }
 }
