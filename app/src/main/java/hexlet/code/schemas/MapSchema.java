@@ -14,16 +14,16 @@ public class MapSchema extends BaseSchema<Map<String, Object>> {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public MapSchema shape(Map<String, BaseSchema<?>> schemas) {
         validators.add(m -> {
             if (m == null) return true;
-            for (Map.Entry<String, BaseSchema<String>> entry : schemas.entrySet()) {
+            for (Map.Entry<String, BaseSchema<?>> entry : schemas.entrySet()) {
                 String key = entry.getKey();
-                BaseSchema<String> schema = entry.getValue();
+                BaseSchema<?> schema = entry.getValue();
                 Object value = m.get(key);
                 if (value == null) continue;
-                if (!schema.isValid((String) value)) {
+                if (!((BaseSchema) schema).isValid(value)) {
                     return false;
                 }
             }
