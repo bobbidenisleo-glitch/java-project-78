@@ -15,15 +15,15 @@ public class MapSchema extends BaseSchema<Map<String, Object>> {
     }
 
     @SuppressWarnings("unchecked")
-    public MapSchema shape(Map<String, BaseSchema<?>> schemas) {
+    public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
         validators.add(m -> {
             if (m == null) return true;
-            for (Map.Entry<String, BaseSchema<?>> entry : schemas.entrySet()) {
+            for (Map.Entry<String, BaseSchema<String>> entry : schemas.entrySet()) {
                 String key = entry.getKey();
-                BaseSchema<?> schema = entry.getValue();
+                BaseSchema<String> schema = entry.getValue();
                 Object value = m.get(key);
                 if (value == null) continue;
-                if (!((BaseSchema<Object>) schema).isValid(value)) {
+                if (!schema.isValid((String) value)) {
                     return false;
                 }
             }
