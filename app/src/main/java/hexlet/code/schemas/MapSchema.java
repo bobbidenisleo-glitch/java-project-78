@@ -1,10 +1,8 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class MapSchema extends BaseSchema<Map<String, Object>> {
-    private Predicate<Map<String, Object>> sizeValidator = null;
 
     public MapSchema required() {
         validators.add(m -> m != null);
@@ -12,12 +10,7 @@ public class MapSchema extends BaseSchema<Map<String, Object>> {
     }
 
     public MapSchema sizeof(int size) {
-        // Удаляем предыдущий size-валидатор
-        if (sizeValidator != null) {
-            validators.remove(sizeValidator);
-        }
-        sizeValidator = m -> m == null || m.size() == size;
-        validators.add(sizeValidator);
+        validators.add(m -> m == null || m.size() == size);
         return this;
     }
 
@@ -29,11 +22,7 @@ public class MapSchema extends BaseSchema<Map<String, Object>> {
                 String key = entry.getKey();
                 BaseSchema<?> schema = entry.getValue();
                 Object value = m.get(key);
-                
-                if (value == null && schema.isValid(null)) {
-                    continue;
-                }
-                
+                if (value == null) continue;
                 if (!((BaseSchema<Object>) schema).isValid(value)) {
                     return false;
                 }
