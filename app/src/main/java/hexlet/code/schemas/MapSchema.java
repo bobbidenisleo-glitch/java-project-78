@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema extends BaseSchema<Map<String, Object>> {
+public class MapSchema extends BaseSchema<Map> {
 
     public MapSchema required() {
         validators.add(m -> m != null);
@@ -14,7 +14,7 @@ public class MapSchema extends BaseSchema<Map<String, Object>> {
         return this;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public MapSchema shape(Map<String, BaseSchema<?>> schemas) {
         validators.add(m -> {
             if (m == null) return true;
