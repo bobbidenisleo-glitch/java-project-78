@@ -15,10 +15,10 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public MapSchema shape(Map<String, BaseSchema<?>> schemas) {
+    public MapSchema shape(Map<String, ? extends BaseSchema<?>> schemas) {
         validators.add(m -> {
             if (m == null) return true;
-            for (Map.Entry<String, BaseSchema<?>> entry : schemas.entrySet()) {
+            for (Map.Entry<String, ? extends BaseSchema<?>> entry : schemas.entrySet()) {
                 String key = entry.getKey();
                 BaseSchema<?> schema = entry.getValue();
                 Object value = m.get(key);
