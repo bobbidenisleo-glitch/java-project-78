@@ -1,12 +1,16 @@
 plugins {
-    id("java")
     id("application")
+    id("checkstyle")
     id("jacoco")
     id("org.sonarqube") version "5.1.0.4882"
 }
 
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
+
+application {
+    mainClass.set("hexlet.code.App")
+}
 
 repositories {
     mavenCentral()
@@ -28,10 +32,6 @@ tasks.jacocoTestReport {
         xml.required.set(true)
         html.required.set(true)
     }
-}
-
-application {
-    mainClass.set("hexlet.code.App")
 }
 
 sonarqube {
