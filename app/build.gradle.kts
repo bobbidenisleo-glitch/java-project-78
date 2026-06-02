@@ -1,6 +1,5 @@
 plugins {
     id("java")
-    id("application")
     id("jacoco")
     id("org.sonarqube") version "5.1.0.4882"
 }
@@ -27,10 +26,6 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
     }
-}
-
-application {
-    mainClass.set("hexlet.code.App")
 }
 
 sonarqube {
