@@ -4,34 +4,29 @@ import java.util.function.Predicate;
 
 public class StringSchema extends BaseSchema<String> {
 
-    private boolean required = false;
+    private Predicate<String> minLengthValidator = null;
+    private Predicate<String> containsValidator = null;
 
     public StringSchema required() {
-        required = true;
+        validators.add(s -> s != null && !s.isEmpty());
         return this;
     }
 
     public StringSchema minLength(int length) {
-        validators.add(s -> {
-            if (s == null) return !required;
-            return s.length() >= length;
-        });
+        if (minLengthValidator != null) {
+            validators.remove(minLengthValidator);
+        }
+        minLengthValidator = s -> s != null && s.length() >= length;
+        validators.add(minLengthValidator);
         return this;
     }
 
     public StringSchema contains(String substring) {
-        validators.add(s -> {
-            if (s == null) return !required;
-            return s.contains(substring);
-        });
-        return this;
-    }
-
-    @Override
-    public boolean isValid(String value) {
-        if (required && (value == null || value.isEmpty())) {
-            return false;
+        if (containsValidator != null) {
+            validators.remove(containsValidator);
         }
-        return super.isValid(value);
+        containsValidator = s -> s != null && s.contains(substring);
+        validators.add(containsValidator);
+        return this;
     }
 }
