@@ -1,32 +1,40 @@
 package hexlet.code.schemas;
 
-import java.util.function.Predicate;
-
 public class StringSchema extends BaseSchema<String> {
 
-    private Predicate<String> minLengthValidator = null;
-    private Predicate<String> containsValidator = null;
+    private boolean required = false;
+    private Integer minLength = null;
+    private String contains = null;
 
     public StringSchema required() {
-        validators.add(s -> s != null && !s.isEmpty());
+        this.required = true;
         return this;
     }
 
     public StringSchema minLength(int length) {
-        if (minLengthValidator != null) {
-            validators.remove(minLengthValidator);
-        }
-        minLengthValidator = s -> s != null && s.length() >= length;
-        validators.add(minLengthValidator);
+        this.minLength = length;
         return this;
     }
 
     public StringSchema contains(String substring) {
-        if (containsValidator != null) {
-            validators.remove(containsValidator);
-        }
-        containsValidator = s -> s != null && s.contains(substring);
-        validators.add(containsValidator);
+        this.contains = substring;
         return this;
+    }
+
+    @Override
+    public boolean isValid(String value) {
+        if (required && (value == null || value.isEmpty())) {
+            return false;
+        }
+        if (value == null) {
+            return true;
+        }
+        if (minLength != null && value.length() < minLength) {
+            return false;
+        }
+        if (contains != null && !value.contains(contains)) {
+            return false;
+        }
+        return true;
     }
 }
