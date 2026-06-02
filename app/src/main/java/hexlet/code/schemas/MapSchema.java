@@ -16,24 +16,23 @@ public class MapSchema extends BaseSchema<Map> {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public MapSchema shape(Map<String, BaseSchema<?>> schemas) {
-
         validators.add(m -> {
             if (m == null) return true;
 
-            for (Map.Entry<String, BaseSchema<?>> entry : schemas.entrySet()) {
+            for (var entry : schemas.entrySet()) {
                 String key = entry.getKey();
-                BaseSchema schema = entry.getValue(); // raw type
-
+                BaseSchema<?> schema = entry.getValue();
                 Object value = m.get(key);
 
-                if (!schema.isValid(value)) {
+                // Если значение null, пропускаем проверку?
+                if (value == null) continue;
+
+                if (!((BaseSchema) schema).isValid(value)) {
                     return false;
                 }
             }
-
             return true;
         });
-
         return this;
     }
 }
