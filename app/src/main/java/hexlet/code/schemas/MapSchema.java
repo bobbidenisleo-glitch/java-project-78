@@ -15,16 +15,17 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public MapSchema shape(Map<String, BaseSchema<?>> schemas) {
+    public MapSchema shape(Map<String, ? extends BaseSchema<?>> schemas) {
         validators.add(m -> {
             if (m == null) return true;
 
-            for (var entry : schemas.entrySet()) {
+            for (Map.Entry<String, ? extends BaseSchema<?>> entry : schemas.entrySet()) {
                 String key = entry.getKey();
                 BaseSchema<?> schema = entry.getValue();
                 Object value = m.get(key);
 
-                // Если значение null, пропускаем проверку?
+                // Если значение отсутствует, оно не проходит валидацию?
+                // Согласно тесту Hexlet, отсутствующие поля игнорируются
                 if (value == null) continue;
 
                 if (!((BaseSchema) schema).isValid(value)) {
