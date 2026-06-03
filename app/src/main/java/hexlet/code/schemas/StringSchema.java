@@ -8,12 +8,12 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema minLength(int length) {
-        validators.add(s -> s != null && s.length() >= length);
+        validators.add(s -> s == null || s.length() >= length);
         return this;
     }
 
     public StringSchema contains(String substring) {
-        validators.add(s -> s != null && s.contains(substring));
+        validators.add(s -> s == null || s.contains(substring));
         return this;
     }
 }
