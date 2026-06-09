@@ -109,4 +109,5 @@ class ValidatorTest {
         actual4.put("lastName", "Jones");
         assertThat(schema.isValid(actual4)).isFalse();
     }
+    @Test
 }
