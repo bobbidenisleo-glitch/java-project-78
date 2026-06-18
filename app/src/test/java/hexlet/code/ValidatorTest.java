@@ -48,3 +48,8 @@ class ValidatorTest {
         assertTrue(schema.isValid(person4));
     }
 }
+
+    @Test
+    void testPlaceholder() {
+        assertTrue(true);
+    }
