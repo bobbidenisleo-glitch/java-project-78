@@ -49,7 +49,3 @@ class ValidatorTest {
     }
 }
 
-    @Test
-    void testPlaceholder() {
-        assertTrue(true);
-    }
