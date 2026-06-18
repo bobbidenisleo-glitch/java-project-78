@@ -20,3 +20,4 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 }
+ 
